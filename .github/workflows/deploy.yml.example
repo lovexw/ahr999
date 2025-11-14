@@ -1,0 +1,25 @@
+# This is an OPTIONAL GitHub Actions workflow for automated deployment
+# You can rename this file to deploy.yml to enable it
+# Or simply use Cloudflare Pages' built-in Git integration (recommended)
+
+name: Deploy to Cloudflare Pages
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      
+      - name: Deploy to Cloudflare Pages
+        uses: cloudflare/pages-action@v1
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          projectName: ahr999-index
+          directory: public
+          gitHubToken: ${{ secrets.GITHUB_TOKEN }}

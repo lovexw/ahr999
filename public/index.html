@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AHR999 指数 - 比特币定投指标</title>
+    <meta name="description" content="实时AHR999指数，每小时更新，帮助您科学定投比特币">
+    <meta name="keywords" content="AHR999,比特币,BTC,定投,投资指标,加密货币,Bitcoin">
+    <meta name="author" content="AHR999 Index">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="AHR999 指数 - 比特币定投指标">
+    <meta property="og:description" content="实时AHR999指数，每小时更新，帮助您科学定投比特币">
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:title" content="AHR999 指数 - 比特币定投指标">
+    <meta property="twitter:description" content="实时AHR999指数，每小时更新，帮助您科学定投比特币">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='0.9em' font-size='90'>₿</text></svg>">
+    
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="/manifest.json">
+    
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>AHR999 指数</h1>
+            <p class="subtitle">比特币定投指标 · 每小时自动更新</p>
+        </header>
+
+        <main>
+            <div class="card main-card">
+                <div class="ahr999-display">
+                    <div class="label">当前指数</div>
+                    <div class="value" id="ahr999-value">--</div>
+                    <div class="signal" id="signal">
+                        <span class="signal-text" id="signal-text">加载中...</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="info-grid">
+                <div class="card">
+                    <div class="info-label">比特币价格</div>
+                    <div class="info-value" id="btc-price">$ --</div>
+                </div>
+                <div class="card">
+                    <div class="info-label">200日均线</div>
+                    <div class="info-value" id="ma200">$ --</div>
+                </div>
+            </div>
+
+            <div class="card advice-card">
+                <div class="advice-icon">💡</div>
+                <div class="advice-content">
+                    <div class="advice-title">投资建议</div>
+                    <div class="advice-text" id="advice">正在获取数据...</div>
+                </div>
+            </div>
+
+            <div class="card">
+                <h2>指标说明</h2>
+                <div class="indicator-ranges">
+                    <div class="range-item">
+                        <div class="range-badge" style="background: linear-gradient(135deg, #00ff00, #00cc00);">
+                            &lt; 0.45
+                        </div>
+                        <div class="range-info">
+                            <strong>抄底区间</strong>
+                            <p>极度低估，适合大量买入</p>
+                        </div>
+                    </div>
+                    <div class="range-item">
+                        <div class="range-badge" style="background: linear-gradient(135deg, #00cc00, #00aa00);">
+                            0.45 - 1.2
+                        </div>
+                        <div class="range-info">
+                            <strong>定投区间</strong>
+                            <p>适合定投建仓</p>
+                        </div>
+                    </div>
+                    <div class="range-item">
+                        <div class="range-badge" style="background: linear-gradient(135deg, #ffaa00, #ff8800);">
+                            1.2 - 3
+                        </div>
+                        <div class="range-info">
+                            <strong>观望区间</strong>
+                            <p>持币观望，不建议操作</p>
+                        </div>
+                    </div>
+                    <div class="range-item">
+                        <div class="range-badge" style="background: linear-gradient(135deg, #ff6600, #ff4400);">
+                            3 - 5
+                        </div>
+                        <div class="range-info">
+                            <strong>减仓区间</strong>
+                            <p>价格偏高，建议减仓</p>
+                        </div>
+                    </div>
+                    <div class="range-item">
+                        <div class="range-badge" style="background: linear-gradient(135deg, #ff0000, #cc0000);">
+                            &gt; 5
+                        </div>
+                        <div class="range-info">
+                            <strong>逃顶区间</strong>
+                            <p>严重高估，建议大量卖出</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <h2>历史数据图表</h2>
+                <div class="chart-container">
+                    <canvas id="historyChart"></canvas>
+                </div>
+            </div>
+
+            <div class="card">
+                <h2>API 接口</h2>
+                <div class="api-section">
+                    <div class="api-endpoint">
+                        <div class="api-method">GET</div>
+                        <div class="api-url">/api/ahr999</div>
+                    </div>
+                    <p class="api-description">获取最新的AHR999指数数据</p>
+                    <div class="code-block">
+<pre>{
+  "timestamp": 1234567890,
+  "date": "2024-01-01T00:00:00.000Z",
+  "currentPrice": 50000,
+  "ma200": 40000,
+  "ahr999": 1.5,
+  "signal": "观望区间",
+  "signalColor": "#ffaa00",
+  "advice": "持币观望，不建议操作"
+}</pre>
+                    </div>
+                </div>
+                <div class="api-section">
+                    <div class="api-endpoint">
+                        <div class="api-method">GET</div>
+                        <div class="api-url">/api/history</div>
+                    </div>
+                    <p class="api-description">获取历史AHR999数据（最近30天）</p>
+                </div>
+            </div>
+
+            <div class="card">
+                <h2>关于 AHR999</h2>
+                <p>AHR999 指数是由比特币投资者 ahr999 创建的定投指标，通过计算比特币价格与其200日移动平均线的关系来判断当前市场的投资价值。</p>
+                <p>该指标可以帮助投资者：</p>
+                <ul>
+                    <li>识别市场底部和顶部</li>
+                    <li>制定科学的定投策略</li>
+                    <li>避免情绪化交易</li>
+                    <li>长期稳定收益</li>
+                </ul>
+            </div>
+        </main>
+
+        <footer>
+            <p>更新时间: <span id="update-time">--</span></p>
+            <p>数据来源: CoinGecko API</p>
+            <p class="disclaimer">*本指标仅供参考，投资有风险，入市需谨慎</p>
+        </footer>
+    </div>
+
+    <script src="/script.js"></script>
+</body>
+</html>

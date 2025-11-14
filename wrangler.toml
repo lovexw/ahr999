@@ -1,0 +1,19 @@
+name = "ahr999-index"
+compatibility_date = "2024-01-01"
+
+# Cron trigger for hourly updates
+[triggers]
+crons = ["0 * * * *"]
+
+# KV namespace for storing AHR999 data
+# Replace 'ahr999_data_namespace' with your actual KV namespace ID after creation
+[[kv_namespaces]]
+binding = "AHR999_DATA"
+id = "ahr999_data_namespace"
+
+[build]
+command = ""
+
+[[rules]]
+type = "ESModule"
+globs = ["**/*.js"]
