@@ -1,0 +1,18 @@
+{
+  "name": "ahr999-index",
+  "version": "1.0.0",
+  "description": "AHR999 Bitcoin Index with hourly updates",
+  "main": "src/index.js",
+  "scripts": {
+    "dev": "wrangler pages dev public --kv AHR999_DATA",
+    "deploy": "wrangler pages deploy public",
+    "build": "node scripts/build.js"
+  },
+  "dependencies": {
+    "hono": "^3.11.7"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "^4.20231218.0",
+    "wrangler": "^3.22.1"
+  }
+}
